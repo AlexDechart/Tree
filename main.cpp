@@ -13,6 +13,6 @@ int main() {
 
     tree.order();
     cout << "--------------------------" << endl;
-    tree.remove(13); //удаление
+    tree.remove(7); //удаление
     tree.order();
 }

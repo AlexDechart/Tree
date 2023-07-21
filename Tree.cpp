@@ -99,29 +99,23 @@ int BTree::remove(int inkey) { // удаление
         return 0;
     }
     else if (current->left == nullptr || current->right == nullptr) { //один потомок
+        Node* next = nullptr;
+        if (current->left == nullptr) {
+            next = current->right;
+        }
+        else { next = current->left; }
+
         if (current == parent->right) {
-            parent->right = parent->left;
+            parent->right = next;
         }
         if (current == parent->left) {
-            parent->left = parent->right;
+            parent->left = next;
         }
         delete current;
         return 0;
     }
     else { // два потомка
-        Node* change_el = current->right;
-        while (change_el->left != nullptr) {
-            change_el = change_el->left;
-        }
-        if (current == parent->right) {
-            parent->right = change_el;
-        }
-        if (current == parent->left) {
-            parent->left = change_el;
-        }
-        remove(change_el);
-        delete current;
-        return 0;
+        return 1;
     }
 }
 
@@ -138,9 +132,7 @@ double BTree::summ(Node* node, int* i) { // cумма узлов
     (*i)++;
     double right = summ(node->right, i);
     double left = summ(node->left, i);
-    //if (node->data >= 500) {
-        //return right + left;
-    //}
+    
 
     return (node->data + right + left);
 }
